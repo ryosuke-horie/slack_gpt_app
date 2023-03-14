@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  app:
+    image: node:18.15.0 # バージョン指定も可能 ex. node:12.16.1
+    container_name: "node-dev"
+    tty: true
+    volumes:
+      - ./src:/src
+    working_dir: "/src"
