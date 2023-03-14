@@ -4,7 +4,11 @@ services:
   app:
     image: node:18.15.0 # バージョン指定も可能 ex. node:12.16.1
     container_name: "node-dev"
-    tty: true
+    stdin_open: true    # 起動後のコンテナを終了させないようにするため
+    tty: true           # 起動後のコンテナを終了させないようにするため
+#    command: npm start # docker-compose up時に実行するコマンドの定義
     volumes:
-      - ./src:/src
-    working_dir: "/src"
+      - ./src:/src      # プロジェクトディレクトリを /src にマウント
+    working_dir: "/src" # bash でアタッチした時の作業ディレクトリが、マウントした /src になる
+    ports:
+    - 8080:8080
