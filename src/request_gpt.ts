@@ -23,8 +23,10 @@ export async function ask(content: string, model = "gpt-3.5-turbo-0301") {
 
     // APIからの返答を取得する。
     const answer = response.data.choices[0].message?.content;
-    console.log(answer)
+
+    return answer;
+    // console.log(answer)
 }
 
-const questionExample = "あなたはテスト用のGPT-3としてふるまってください。"
-ask(questionExample)
+// const questionExample = "あなたはテスト用のGPT-3としてふるまってください。"
+// ask(questionExample)
