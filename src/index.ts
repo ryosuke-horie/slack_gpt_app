@@ -43,20 +43,18 @@ async function ask(content: string, model = "gpt-3.5-turbo-0301") {
 }
 
 // Lambdaハンドラー
+// Lambdaハンドラー
 export async function handler(event: any): Promise<any> {
   const requestBody = JSON.parse(event.body);
 
   if (requestBody.challenge) {
     return {
       statusCode: 200,
-      body: requestBody.challenge,
+      body: JSON.stringify({
+        challenge: requestBody.challenge,
+      }),
     };
   }
-
-  const response = {
-    statusCode: 200,
-    body: 'OK',
-  };
 
   const slack_message: string = requestBody.event.text;
   const channel_id: string = requestBody.event.channel;
@@ -66,13 +64,23 @@ export async function handler(event: any): Promise<any> {
   console.log(channel_id);
   console.log(thread_ts);
 
-  // GPT-3に問い合わせ、Slackに投稿する処理を非同期で実行
   try {
     const message = await ask(slack_message);
     await postSlackMessage(message || 'エラー', channel_id, thread_ts);
   } catch (error) {
     console.error(`Error in processing: ${error}`);
   }
+
+  // 応答オブジェクトの作成
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify({
+      text: 'OK',
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
 
   return response;
 }
