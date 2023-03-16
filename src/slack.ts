@@ -4,17 +4,11 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 /**
- * slackからメッセージを受け取る。
- */
-const getSlackMessage = () => {
-    // const SlackEvents = axios.;
-}
-
-/**
  * メッセージを送信する
  * @param message ChatGPT APIからの返答メッセージ
  */
-export const postSlackToMessage = (message: string) => {
+export async function postSlackToMessage(message: any): Promise<any> {
+// export const postSlackToMessage = (message: string) => {
     // messageをJSON形式に変換
     const message_json = {
         text: message,

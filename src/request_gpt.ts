@@ -25,8 +25,4 @@ export async function ask(content: string, model = "gpt-3.5-turbo-0301") {
     const answer = response.data.choices[0].message?.content;
 
     return answer;
-    // console.log(answer)
 }
-
-// const questionExample = "あなたはテスト用のGPT-3としてふるまってください。"
-// ask(questionExample)
